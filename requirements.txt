@@ -1,0 +1,8 @@
+aiosqlite==0.20.0
+alembic==1.13.3
+Pyrogram==2.0.106
+pyrogram_patch @ git+https://github.com/kotttee/pyrogram_patch.git@c32e9dadd0ea5acb6832de476073eacb4babc97d
+python-dotenv==1.0.1
+redis==5.1.1
+SQLAlchemy==2.0.35
+transliterate==1.10.2
