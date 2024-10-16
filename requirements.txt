@@ -5,4 +5,5 @@ pyrogram_patch @ git+https://github.com/kotttee/pyrogram_patch.git@c32e9dadd0ea5
 python-dotenv==1.0.1
 redis==5.1.1
 SQLAlchemy==2.0.35
+TgCrypto==1.2.5
 transliterate==1.10.2
