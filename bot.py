@@ -205,11 +205,12 @@ async def delete_task(client: Client, callback: CallbackQuery, state: State):
 
 
 @app.on_message()
-async def random_message_answer(client: Client, message: Message):
+async def random_message_answer(client: Client, message: Message, state: State):
     """Reply to a message not to be processed with the main handlers"""
     await client.delete_messages(chat_id=message.chat.id, message_ids=messages_id)
     messages_id.clear()
     await message.reply(text=RANDOM_ANSWER_TEXT, reply_markup=start_keyboard)
+    await state.finish()
 
 
 app.run()
