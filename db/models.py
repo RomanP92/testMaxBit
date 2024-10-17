@@ -52,7 +52,7 @@ class Task(Base):
     description: Mapped[str]
     completed: Mapped[bool] = mapped_column(Boolean, default=False)
     user_id: Mapped[int] = mapped_column(ForeignKey("user_account.id"))
-    user: Mapped["User"] = relationship(back_populates="tasks", lazy='selectin')
+    user: Mapped["User"] = relationship(back_populates="tasks", lazy='joined', innerjoin=True)
 
     @classmethod
     async def create_task(cls, db: AsyncSession, **kwargs) -> 'Task':

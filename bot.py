@@ -12,7 +12,9 @@ from db.models import User, Task
 from keyboards.keyboards import get_start_keyboard, get_tasks_keyboard, get_task_item_keyboard, get_logins_keyboard, \
     get_back_button_keyboard
 from services.login_generator import get_random_login
-from services.services import MemoryStorage, retranslation, check_registration, get_button_text
+from services.services import MemoryStorage, retranslation
+from services.auth import check_registration
+from keyboards.services import get_button_text
 
 # from pyrogram_patch.fsm.storages import RedisStorage
 
