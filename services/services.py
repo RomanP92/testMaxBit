@@ -7,7 +7,7 @@ from pyrogram_patch.fsm.storages import MemoryStorage as Ms
 from pyrogram.types import CallbackQuery, Message
 from sqlalchemy.exc import SQLAlchemyError
 
-from db.db import get_db
+from db.db import sessionmanager
 from db.models import User
 
 log_serv = logging.getLogger(__name__)
@@ -30,14 +30,12 @@ class MemoryStorage(Ms):
 
 async def retranslation(method: Callable, **kwargs) -> Any:
     """obtaining a session and executing a method to work with the database"""
-    session_gen = get_db()
-    session_ = anext(session_gen)
-    async with await session_ as session:
+    async with sessionmanager.session_gen() as session:
         try:
             result = await method(db=session, **kwargs)
         except SQLAlchemyError as e:
             log_serv.exception(e, exc_info=True)
-            session.rollback()
+            await session.rollback()
         else:
             return result
 
@@ -57,9 +55,7 @@ def check_registration(func: Callable) -> Callable:
         except ValueError as e:
             return e
         telegram_id = message.from_user.id
-        session_gen = get_db()
-        session_ = anext(session_gen)
-        async with await session_ as session:
+        async with sessionmanager.session_gen() as session:
             db_user = await User.get_user_for_telegram_id(db=session, telegram_id=telegram_id)
             if db_user is not None:
                 return await func(client, message, state, db_user=db_user)

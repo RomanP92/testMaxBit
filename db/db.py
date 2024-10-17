@@ -45,8 +45,3 @@ class Base(DeclarativeBase):
     """Declarative base class creation"""
     pass
 
-
-async def get_db() -> AsyncSession:
-    """ Returns the asynchronous session generator """
-    async with sessionmanager.session_gen() as session:
-        yield session
